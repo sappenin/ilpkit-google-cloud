@@ -1,4 +1,4 @@
-#ilpkit-gce-single 
+# ILPKit on Google Cloud Platform (Single Instance GCE) 
 
 This guide details how to intall [ILP Kit](https://github.com/interledgerjs/ilp-kit) and all of its dependencies into a single VM running in the Google Cloud Platform (GCP) using Compute Engine.  It is an adaptation of this [authoritative guide](https://github.com/interledgerjs/ilp-kit/blob/master/docs/SETUP.md), and is estimated to take a couple of hours to complete.
 
