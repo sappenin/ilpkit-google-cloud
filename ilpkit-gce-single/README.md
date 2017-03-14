@@ -110,55 +110,18 @@ root$ apt-get update && apt-get upgrade
 
 > Note: The official Debian/Ubuntu images automatically ``apt-get clean`` after each ``apt-get``
 
-## Install PostgreSQL
+## ILPKit Database
+To run ILPKit, you'll need an SQL database.  At present, ILPKit support PostgreSQL 9.6 (or higher), so you have two options: Operate a local database instance in the same VM as your ILPKit, or operate a distinct database using Google's [Cloud SQL](https://cloud.google.com/sql/docs/postgres/) product.  Each option has its pro's and con's.
 
-> Pro-Tip: Google announced PostgreSQL support in its [Cloud SQL](https://cloud.google.com/sql/docs/postgres/) product, which will be enabled March 13th, 2017.  Once that is enabled for all users by Google, this guide will be updated to optionally utilize that instead of a locally-managed database instance.
+### Option1: Run PostgreSQL Locally
+When compared to option 2, this option is simpler to setup and cheaper to operate on an hourly basis.  For most ILPKit scenarios, this will be the preferred choice, simply due to cost.  However, it _does_ mean you'll be responsible for managing the database layer of ILPKit, including backups, patches, maintenance, etc.  But, for development or exploration purposes, this is probably the way to go.
 
-Next, install Postgres via the following (be sure you're still using the `root` user):
+To use this option, [follow the instructions here](./PostgresLocal.md)
 
-``` sh 
-root$ apt-get install libssl-dev python build-essential libpq-dev postgresql postgresql-contrib
-```
+### Option2: Run PostgreSQL in Google's CloudSQL
+This option offers significant advantages over Option 1, but will cost more money per month.  The primary reason to select this option is so that Google will manage your database software and the VM running your database, including automated backups.  This "managements" including OS patches, as well as PostgreSQL patches and updates.  For full details, including additional reasons you would want Google run your database, [read more here](https://cloud.google.com/sql/).
 
-> The `postgres-9.6` package creates a `postgres` user when it is `apt-get installed`.
-
-Next, start the Postgres service as root (postgres has functionality to actuall run the service as the `postgres` user):
-
-``` sh
-  me$ sudo service postgresql start
-```
-
-## Configure PostgreSQL
-In order to utilize Postgres, we need to configure it for ILP-Kit.  To do that, first sudo as the `postgres` user:
-
-``` sh
-  me$ sudo su - postgres
-```
-
-In order to use Postgres, you'll need a user/password on postgres, as well as a database named `ilpkit` (or a name of your choosing).  Issue the following commands to 1) create a PostgreSQL role named `ilpkit` with `ilpkit` as the password and 2) create a database `ilpkit` owned by the `ilpkit` role:
-
-``` sh
-  postgres$ psql --command "CREATE USER ilpkit WITH SUPERUSER PASSWORD 'ilpkit';" &&\
-        createdb -O ilpkit ilpkit
-```
-
-> Note: For extra security, you might want to consider using some other secret value as the password for the Postgres `ilpkit` user.  However, keep in mind that, by default, the database is not accessible outside of the VM, and the VM is not accessible without your Google Account credentials, so this is probably not a necessary thing to worry about.  However, if for some reason an attacker were to gain access to your machine or database process, using a stronger password here _might_ offer you some additional protection. 
-
-Next, make sure your postgres version is at least 9.5 by running:
-
-``` sh
-  postgres$ psql --version 
-```
-
-> Using the commands in this guide will install PostgreSQL 9.6 or above.
-
-Finally, exit the `postgres` user role so you're now running as your Google Account:
-
-``` sh
-  postgres$ exit
-```
-
-> You might need to execute the `exit` command more than once to get back to your google account, depending on how you sudo'd above.
+To use this option, [follow the instructions here](./PostgresGCP.md)
 
 ## Install Node and NPM
 In order to run ILP-Kit, you'll need [Node](https://nodejs.org/) and NPM installed in your VM.  Execute the following commands to install these libraries:
@@ -268,8 +231,6 @@ Now follow DigitalOcean's letsencrypt instructions [here](https://www.digitaloce
 > Note: You can skip step #4 in the DigitalOcean letsencrypt instructions because the firewall for Google VMs is configured outside of any particular VM.
 
 This is all the domain setup that you have to do. 
-
-> NOTE: 
 
 # ILP Kit configuration
 
