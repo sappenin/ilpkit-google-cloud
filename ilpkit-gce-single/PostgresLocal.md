@@ -1,4 +1,4 @@
-#Installing PostgreSQL (Local Edition)
+# Installing PostgreSQL (Local Edition)
 This guide details how to intall and configure [PostgreSQL](https://www.postgresql.org/) to support your ILP Kit installation.  It is a continuation of a broader installation guide, [found here](../README.md).  
 
 

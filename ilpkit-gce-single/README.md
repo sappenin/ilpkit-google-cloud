@@ -119,7 +119,7 @@ When compared to option 2, this option is simpler to setup and cheaper to operat
 To use this option, [follow the instructions here](./PostgresLocal.md)
 
 ### Option2: Run PostgreSQL in Google's CloudSQL
-This option offers significant advantages over Option 1, but will cost more money per month.  The primary reason to select this option is so that Google will manage your database software and the VM running your database, including automated backups.  This "managements" including OS patches, as well as PostgreSQL patches and updates.  For full details, including additional reasons you would want Google run your database, [read more here](https://cloud.google.com/sql/).
+This option offers significant advantages over Option 1, but will cost more money per month.  The primary reason to select this option is so that Google will manage your database software and the VM running your database, including automated backups.  This "management" includes OS patches, as well as PostgreSQL patches and updates.  For full details, including additional reasons you would want Google run your database, [read more here](https://cloud.google.com/sql/).
 
 To use this option, [follow the instructions here](./PostgresGCP.md)
 
